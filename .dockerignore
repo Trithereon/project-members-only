@@ -1,0 +1,10 @@
+node_modules
+.git
+.vscode
+.gitignore
+.prettierrc
+Dockerfile
+docker-compose.yaml
+docker-compose.dev.yaml
+.dockerignore
+example.env

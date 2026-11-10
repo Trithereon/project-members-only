@@ -1,0 +1,34 @@
+<form
+  id="pantheonCreate"
+  action="/pantheon/create"
+  method="POST"
+  class="<%= visible ? 'visible' : ''%>"
+  <%= errors ? "data-errored" : "" %>
+>
+  <%- include("./validationErrors") %>
+  <div class="input-line">
+    <label for="name">Name: </label>
+    <input type="text" id="name" name="name" placeholder="e.g. Roman" value="<%= locals.data ? data.name : '' %>" />
+  </div>
+  <div class="input-line">
+    <label for="origin">Region of origin: </label>
+    <input
+      type="text"
+      id="origin"
+      name="origin"
+      placeholder="e.g. Rome, 2000 BC"
+      value="<%= locals.data ? data.origin : '' %>"
+    />
+  </div>
+  <div class="input-line">
+    <label for="description">Description: </label>
+    <textarea
+      id="description"
+      name="description"
+      placeholder="A brief summary"
+      rows="9"
+      cols="45"
+    ><%= locals.data ? data.description : '' %></textarea>
+  </div>
+  <button type="submit">Submit</button>
+</form>

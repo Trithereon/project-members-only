@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head", {title:title}) %>
+  <body>
+    <%- include("./partials/header", {title:title}) %>
+    <a href="/">Go back to homepage</a>
+    <button class="create-btn" data-id="domainCreate" data-action="toggleForm">
+      Create new domain
+    </button>
+
+    <% if (locals.visibleForm === "domainCreate") { %>
+    <%- include("./partials/createDomainForm", {data: data, visible: true, errors: errors}) %>
+    <% } else { %>
+    <%- include("./partials/createDomainForm", {data: false, visible: false, errors: false}) %>
+    <% } %>
+
+    <% domains.forEach((domain)=>{ %>
+    <div class="domain-block">
+      <h2 class="name">
+        <a href="/domain/<%= domain.id %>/<%= domain.name %>">
+          <%= domain.name %>
+        </a>
+      </h2>
+    </div>
+    <% }) %>
+
+    <%- include("./partials/footer") %>
+  </body>
+</html>

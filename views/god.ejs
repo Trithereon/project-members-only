@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head", {title:title}) %>
+  <body>
+    <%- include("./partials/header", {title:title}) %>
+    <a href="/pantheon/<%= god.pantheon_id %>/<%= god.p_name %>">
+      Go back to <%= god.p_name %> pantheon
+    </a>
+    <div class="god-block solo">
+      <small>
+        <%= god.gender || "Gender unknown" %>,
+        <%= god.status || "Status unknown" %>
+      </small>
+      <div class="description"><%= god.description %></div>
+
+      <% if (god.img_url) { %>
+      <img src="<%= god.img_url %>" alt="Image of <%= god.name %>" />
+      <% } %>
+      <% if (godSymbols) { %>
+      <h2>Symbols:</h2>
+      <ul>
+        <% godSymbols.forEach((symbol) => { %>
+        <li>
+          <a class="symbol" href="/symbol/<%= symbol.id %>/<%= symbol.symbol %>"
+            ><%= symbol.symbol %></a
+          >
+        </li>
+        <% }) %>
+      </ul>
+      <% } %>
+      <% if (godDomains) { %>
+      <h2>Domains:</h2>
+      <ul>
+        <% godDomains.forEach((domain) => { %>
+        <li>
+          <a class="domain" href="/domain/<%= domain.id %>/<%= domain.name %>">
+            <%= domain.name %>
+          </a>
+        </li>
+        <% }) %>
+      </ul>
+      <% } %>
+      <button
+        class="delete-btn"
+        data-action="deleteGod"
+        data-id="<%= god.id %>"
+      >
+        Delete god
+      </button>
+      <button
+        class="edit-btn"
+        data-action="toggleForm"
+        data-id="editForm-<%= god.id %>"
+      >
+        Edit god
+      </button>
+
+      <% if (locals.visibleForm === `editForm-${god.id}`) { %>
+      <%- include("./partials/editGodForm", {domains: domains, god: god, visible: true, errors: errors}) %>
+      <% } else { %>
+      <%- include("./partials/editGodForm", {domains: domains, god: god, visible: false, errors: false}) %>
+      <% } %>
+    </div>
+
+    <%- include("./partials/footer") %>
+  </body>
+</html>

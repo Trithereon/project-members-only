@@ -1,0 +1,21 @@
+<form
+  id="symbolCreate"
+  action="/symbol/create"
+  method="POST"
+  class="<%= visible ? 'visible' : ''%>"
+  <%= errors ? "data-errored" : "" %>
+>
+  <%- include("./validationErrors") %>
+
+  <div class="input-line">
+    <label for="symbol">Name: </label>
+    <input
+      type="text"
+      id="symbol"
+      name="symbol"
+      placeholder="e.g. Spear"
+      value="<%= locals.data ? locals.data.symbol : '' %>"
+    />
+  </div>
+  <button type="submit">Submit</button>
+</form>

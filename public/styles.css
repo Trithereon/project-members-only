@@ -1,0 +1,160 @@
+@font-face {
+  font-family: "North Eternal";
+  src: url("./assets/fonts/NorthEternal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Roboto";
+  src:
+    local("Roboto"),
+    url("./assets/fonts/Roboto-Regular.woff2") format("woff2");
+}
+
+:root {
+  font-family: "Roboto", system-ui, sans-serif;
+  font-display: block;
+  text-wrap: balanced;
+}
+
+body {
+  background-image: url("/assets/background/sky.avif");
+  background-size: cover;
+  box-sizing: border-box;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0 8px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1,
+h2 {
+  font-family: "North Eternal", system-ui, serif;
+  font-weight: normal;
+}
+h1 {
+  font-size: 2.5em;
+  margin: 0;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 0;
+}
+
+ul {
+  margin-top: 0;
+}
+
+a {
+  width: fit-content;
+  padding: 8px 0;
+  text-decoration-line: none;
+}
+
+a:hover {
+  background: none;
+}
+a:visited {
+  color: rgb(0, 0, 238);
+}
+
+.main-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 850px;
+}
+
+.god-block,
+.pantheon-block {
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px 40px;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.god-block:hover,
+.pantheon-block:hover {
+  background-color: oklch(98% 0.1 220 / 0.3);
+}
+
+.god-block {
+  max-height: 600px;
+}
+
+.solo {
+  max-height: none;
+}
+
+.create-btn,
+.delete-btn,
+.edit-btn {
+  width: fit-content;
+  height: 26px;
+  margin: 12px 0;
+}
+
+.create-btn {
+  background-color: yellowgreen;
+}
+
+.delete-btn {
+  background-color: darksalmon;
+}
+
+.edit-btn {
+  background-color: goldenrod;
+}
+
+form {
+  display: none;
+  border: 1px solid grey;
+  padding: 6px;
+}
+
+form > * {
+  margin: 6px 0;
+}
+
+.visible {
+  display: block;
+}
+
+.input-line {
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  align-self: center;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.symbol,
+.domain {
+  padding: 0;
+}
+
+.error {
+  color: rgb(196, 0, 0);
+  font-weight: bold;
+}
+
+footer {
+  padding: 40px 0 20px;
+}
+
+@media (max-width: 512px) {
+  img {
+    max-width: min(100%, 400px);
+  }
+}

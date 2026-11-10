@@ -1,0 +1,85 @@
+<form
+  id="editForm-<%= god.id %>"
+  action="/god/edit/<%= god.id %>?_method=PUT"
+  method="POST"
+  data-form="edit"
+  class="<%= visible ? 'visible' : '' %>"
+  <%= errors ? "data-errored" : "" %>
+>
+<%- include("./validationErrors") %>
+
+  <div class="input-line">
+    <label for="name">Name: </label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      placeholder="e.g. Apollo"
+      value="<%= god.name %>"
+      required
+    />
+  </div>
+  <div class="input-line">
+    <label for="pantheon_id">Pantheon: </label>
+    <select id="pantheon_id" name="pantheon_id" required>
+      <option value="">-</option>
+      <% pantheons.forEach((pantheon) => { %>
+      <option value="<%= pantheon.id %>" <%= pantheon.id === god.pantheon_id ? "selected" : "" %>>
+        <%= pantheon.name %>
+      </option>
+      <% }) %>
+    </select>
+  </div>
+  <div class="input-line">
+    <label for="gender">Gender: </label>
+    <select id="gender" name="gender">
+      <option value="">-</option>
+      <option value="Male" <%= god.gender === "Male" ? "selected" : "" %>>Male</option>
+      <option value="Female" <%= god.gender === "Female" ? "selected" : "" %>>Female</option>
+      <option value="Both" <%= god.gender === "Both" ? "selected" : "" %>>Both</option>
+    </select>
+  </div>
+  <div class="input-line">
+    <label for="status">Status: </label>
+    <select id="status" name="status">
+      <option value="">-</option>
+      <option value="Major" <%= god.status === "Major" ? "selected" : "" %>>Major</option>
+      <option value="Minor" <%= god.status === "Minor" ? "selected" : "" %>>Minor</option>
+    </select>
+  </div>
+  <div class="input-line">
+    <label for="description">Description: </label>
+    <textarea
+      id="description"
+      name="description"
+      placeholder="A brief summary"
+    ><%= god.description %></textarea>
+  </div>
+  <div class="input-line">
+    <label for="img_url">Image URL: </label>
+    <input
+      name="img_url"
+      id="img_url"
+      type="url"
+      placeholder="Enter a valid URL"
+      value="<%= god.img_url %>"
+    />
+  </div>
+    <div class="input-line">
+    <label for="domains">Domain(s): </label>
+    <select name="domains" id="domains" multiple size="6">
+      <% domains.forEach((d) => { %>
+      <option value="<%= d.id %>" <%= godDomains.some(dom => dom.id === d.id) ? 'selected' : '' %>><%= d.name %></option>
+      <% }) %>
+    </select>
+  </div>
+  <div class="input-line">
+    <label for="symbols">Symbol(s): </label>
+    <select name="symbols" id="symbols" multiple size="6">
+      <% symbols.forEach((s) => { %>
+      <option value="<%= s.id %>" <%= godSymbols.some(sym => sym.id === s.id) ? 'selected' : '' %>><%= s.symbol %></option>
+      <% }) %>
+    </select>
+  </div>
+  <button type="submit">Submit Changes</button>
+</form>

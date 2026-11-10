@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head", {title:title}) %>
+  <body>
+    <%- include("./partials/header", {title:title}) %>
+    <a href="/">Go back to homepage</a>
+    <button class="create-btn" data-id="symbolCreate" data-action="toggleForm">
+      Create new symbol
+    </button>
+
+    <% if (locals.visibleForm === "symbolCreate") { %>
+    <%- include("./partials/createSymbolForm", {data: data, visible: true, errors: errors}) %>
+    <% } else { %>
+    <%- include("./partials/createSymbolForm", {data: false, visible: false, errors: false}) %>
+    <% } %>
+
+    <% symbols.forEach((symbol)=>{ %>
+    <div class="symbol-block">
+      <h2 class="name">
+        <a href="/symbol/<%= symbol.id %>/<%= symbol.symbol %>">
+          <%= symbol.symbol %>
+        </a>
+      </h2>
+    </div>
+    <% }) %>
+
+    <%- include("./partials/footer") %>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head", {title:title}) %>
+  <body>
+    <%- include("./partials/header", {title:title}) %>
+
+    <button
+      class="create-btn"
+      data-id="pantheonCreate"
+      data-action="toggleForm"
+    >
+      Create new pantheon
+    </button>
+    <% if (locals.visibleForm === "pantheonCreate") { %>
+    <%- include("./partials/createPantheonForm", {data: data, visible: true, errors: errors}) %>
+    <% } else { %>
+    <%- include("./partials/createPantheonForm", {data: false, visible: false, errors: false}) %>
+    <% } %>
+    <div class="main-content">
+      <% pantheons.forEach((pantheon)=>{ %>
+      <div class="pantheon-block">
+        <h2 class="name">
+          <a href="/pantheon/<%= pantheon.id %>/<%= pantheon.name %>">
+            <%= pantheon.name %>
+          </a>
+        </h2>
+        <small class="origin"><%= pantheon.origin %></small>
+        <div class="description"><%= pantheon.description %></div>
+        <button
+          class="delete-btn"
+          data-action="deletePantheon"
+          data-id="<%= pantheon.id %>"
+        >
+          Delete pantheon
+        </button>
+        <button
+          class="edit-btn"
+          data-action="toggleForm"
+          data-id="editForm-<%= pantheon.id %>"
+        >
+          Edit pantheon
+        </button>
+        <% if (locals.visibleForm === `editForm-${pantheon.id}`) { %>
+        <%- include("./partials/editPantheonForm", {pantheon: pantheon, visible: true, errors: errors}) %>
+        <% } else { %>
+        <%- include("./partials/editPantheonForm", {pantheon: pantheon, visible: false, errors: false}) %>
+        <% } %>
+      </div>
+      <% }) %>
+    </div>
+
+    <h2><a href="/domains">Domains</a></h2>
+    <h2><a href="/symbols">Symbols</a></h2>
+
+    <%- include("./partials/footer") %>
+  </body>
+</html>
