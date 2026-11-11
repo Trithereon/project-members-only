@@ -6,13 +6,13 @@ const controller = require("../controllers/controller");
 router.get("/", controller.indexGet);
 
 // POST
-router.post("/pantheon/create", controller.pantheonPost);
+router.post("/sign-up", controller.signUpPost);
 
 // DELETE
-router.delete("/god/delete/:id", controller.godDelete);
+router.delete("/user/delete/:id", () => {});
 
 // PUT
-router.put("/pantheon/edit/:id", controller.pantheonPut);
+router.put("/user/edit/:id", () => {});
 
 router.all("{*splat}", (req, res) => {
   console.log("404 triggered by:", req.method, req.originalUrl);

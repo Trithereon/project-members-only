@@ -4,53 +4,42 @@
   <body>
     <%- include("./partials/header", {title:title}) %>
 
-    <button
-      class="create-btn"
-      data-id="pantheonCreate"
-      data-action="toggleForm"
-    >
-      Create new pantheon
+    <button class="sign-up" data-id="signUp" data-action="toggleForm">
+      Sign up
     </button>
-    <% if (locals.visibleForm === "pantheonCreate") { %>
-    <%- include("./partials/createPantheonForm", {data: data, visible: true, errors: errors}) %>
+    <% if (locals.visibleForm === "signUpForm") { %>
+    <%- include("./partials/signUpForm", {data: data, visible: true, errors: errors}) %>
     <% } else { %>
-    <%- include("./partials/createPantheonForm", {data: false, visible: false, errors: false}) %>
+    <%- include("./partials/signUpForm", {data: false, visible: false, errors: false}) %>
     <% } %>
+
     <div class="main-content">
-      <% pantheons.forEach((pantheon)=>{ %>
-      <div class="pantheon-block">
-        <h2 class="name">
-          <a href="/pantheon/<%= pantheon.id %>/<%= pantheon.name %>">
-            <%= pantheon.name %>
-          </a>
-        </h2>
-        <small class="origin"><%= pantheon.origin %></small>
-        <div class="description"><%= pantheon.description %></div>
+      <% messages.forEach((message)=>{ %>
+      <div class="message-block">
+        <h2 class="message-title"><%= message.title %></h2>
+        <div class="message-text"><%= message.text %></div>
         <button
           class="delete-btn"
-          data-action="deletePantheon"
-          data-id="<%= pantheon.id %>"
+          data-action="deletemessage"
+          data-id="<%= message.id %>"
         >
-          Delete pantheon
+          Delete message
         </button>
         <button
           class="edit-btn"
           data-action="toggleForm"
-          data-id="editForm-<%= pantheon.id %>"
+          data-id="editMessageForm-<%= message.id %>"
         >
-          Edit pantheon
+          Edit message
         </button>
-        <% if (locals.visibleForm === `editForm-${pantheon.id}`) { %>
-        <%- include("./partials/editPantheonForm", {pantheon: pantheon, visible: true, errors: errors}) %>
+        <% if (locals.visibleForm === `editForm-${message.id}`) { %>
+        <%- include("./partials/editMessageForm", {message: message, visible: true, errors: errors}) %>
         <% } else { %>
-        <%- include("./partials/editPantheonForm", {pantheon: pantheon, visible: false, errors: false}) %>
+        <%- include("./partials/editMessageForm", {message: message, visible: false, errors: false}) %>
         <% } %>
       </div>
       <% }) %>
     </div>
-
-    <h2><a href="/domains">Domains</a></h2>
-    <h2><a href="/symbols">Symbols</a></h2>
 
     <%- include("./partials/footer") %>
   </body>

@@ -1,0 +1,39 @@
+<form 
+id="signUp"
+action="/sign-up" 
+method="POST" 
+class="<%= visible ? 'visible' : ''%>" 
+<%= errors ? "data-errored" : "" %>
+>
+  <%- include("./validationErrors") %>
+
+  <label for="firstname">First name: </label>
+  <input
+    type="text"
+    name="firstname"
+    id="firstname"
+    value="<%= locals.data ? locals.data.firstname : '' %>"
+  />
+  <label for="lastname">Last name: </label>
+  <input
+    type="text"
+    name="lastname"
+    id="lastname"
+    value="<%= locals.data ? locals.data.lastname : '' %>"
+  />
+  <label for="username">Username: </label>
+  <input
+    type="text"
+    name="username"
+    id="username"
+    value="<%= locals.data ? locals.data.username : '' %>"
+  />
+  <label for="password">Password: </label>
+  <input
+    type="password"
+    name="password"
+    id="password"
+    value="<%= locals.data ? locals.data.password : '' %>"
+  />
+  <button type="submit">Submit</button>
+</form>
