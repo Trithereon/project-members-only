@@ -18,10 +18,21 @@ exports.indexGet = async (req, res, next) => {
 };
 
 exports.signUpPost = async (req, res, next) => {
+  // TODO: Add validation
   try {
     await db.signUp(req.body);
-    return res.redirect("/");
   } catch (err) {
     next(err);
   }
+  return res.redirect("/");
+};
+
+exports.messageDelete = async (req, res, next) => {
+  // TODO: Add validation and confirmation alert.
+  try {
+    await db.deleteMessage(req.params.id);
+  } catch (err) {
+    next(err);
+  }
+  return res.redirect("/");
 };

@@ -11,7 +11,7 @@ async function signUp(user) {
   INSERT INTO users(firstname, lastname, username, password)
   VALUES ($1, $2, $3, $4)`;
 
-  await pool.query(SQL, [
+  return await pool.query(SQL, [
     user.firstname,
     user.lastname,
     user.username,
@@ -19,7 +19,13 @@ async function signUp(user) {
   ]);
 }
 
+async function deleteMessage(id) {
+  const SQL = `DELETE FROM messages WHERE id = $1`;
+  return await pool.query(SQL, [id]);
+}
+
 module.exports = {
   getMessages,
   signUp,
+  deleteMessage,
 };

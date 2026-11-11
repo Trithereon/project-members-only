@@ -18,25 +18,13 @@
       <div class="message-block">
         <h2 class="message-title"><%= message.title %></h2>
         <div class="message-text"><%= message.text %></div>
-        <button
-          class="delete-btn"
-          data-action="deletemessage"
-          data-id="<%= message.id %>"
+        <form
+          method="POST"
+          class="visible delete"
+          action="/delete/message/<%= message.id %>?_method=DELETE"
         >
-          Delete message
-        </button>
-        <button
-          class="edit-btn"
-          data-action="toggleForm"
-          data-id="editMessageForm-<%= message.id %>"
-        >
-          Edit message
-        </button>
-        <% if (locals.visibleForm === `editForm-${message.id}`) { %>
-        <%- include("./partials/editMessageForm", {message: message, visible: true, errors: errors}) %>
-        <% } else { %>
-        <%- include("./partials/editMessageForm", {message: message, visible: false, errors: false}) %>
-        <% } %>
+          <button class="delete-btn" type="submit">Delete message</button>
+        </form>
       </div>
       <% }) %>
     </div>

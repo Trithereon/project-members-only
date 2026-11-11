@@ -9,7 +9,7 @@ router.get("/", controller.indexGet);
 router.post("/sign-up", controller.signUpPost);
 
 // DELETE
-router.delete("/user/delete/:id", () => {});
+router.delete("/delete/message/:id", controller.messageDelete);
 
 // PUT
 router.put("/user/edit/:id", () => {});
