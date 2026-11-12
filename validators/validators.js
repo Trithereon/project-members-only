@@ -74,7 +74,23 @@ const validateSignUp = [
     .withMessage("Passwords must match."),
 ];
 
+const validateBecomeAdmin = [
+  body("secret")
+    .trim()
+    .notEmpty()
+    .withMessage("Secret is required.")
+    .isAlpha()
+    .withMessage("Only letters are needed. No spaces.")
+    .isLength({ max: 500 })
+    .withMessage("Hint: it is shorter than 500 characters.")
+    .custom((secret) => {
+      return secret === process.env.ADMIN_SECRET;
+    })
+    .withMessage("Incorrect, try again..."),
+];
+
 module.exports = {
   validateJoinTheClub,
   validateSignUp,
+  validateBecomeAdmin,
 };

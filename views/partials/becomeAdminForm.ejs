@@ -1,0 +1,12 @@
+<form id="becomeAdmin" action="/become-admin" method="POST" class="visible">
+  <%- include("./validationErrors") %>
+
+  <label for="secret">Admin secret phrase: </label>
+  <input
+    type="text"
+    name="secret"
+    id="secret"
+    placeholder="Enter the secret phrase..."
+  />
+  <button type="submit">Submit</button>
+</form>

@@ -4,6 +4,7 @@ const { validationResult, matchedData } = require("express-validator");
 const {
   validateJoinTheClub,
   validateSignUp,
+  validateBecomeAdmin,
 } = require("../validators/validators");
 const passport = require("passport");
 
@@ -49,7 +50,7 @@ exports.joinTheClubPost = [
       return res.redirect("/join-the-club");
     }
 
-    await db.promoteToMember(res.locals.currentUser.id);
+    await db.promoteToMember(req.user.id);
     res.redirect("/");
   },
 ];
@@ -112,4 +113,39 @@ exports.messageDelete = async (req, res, next) => {
   // TODO: Add validation and confirmation alert.
   await db.deleteMessage(req.params.id);
   res.redirect("/");
+};
+
+exports.becomeAdminPost = [
+  validateBecomeAdmin,
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(
+        "400 triggered by invalid input body: ",
+        req.method,
+        req.originalUrl,
+      );
+      // Use req.session to save/access state
+      req.session.attempt = {
+        errors: errors.array(),
+      };
+      return res.redirect("/become-admin");
+    }
+
+    await db.promoteToAdmin(req.user.id);
+
+    return res.redirect("/");
+  },
+];
+
+exports.becomeAdminGet = async (req, res, next) => {
+  // Uses req.session to save/access state
+  const attempt = req.session.attempt || {};
+  // Delete, to avoid stale data lingering
+  delete req.session.attempt;
+
+  return res.render("becomeAdmin", {
+    title: "Become an admin",
+    errors: attempt.errors || [],
+  });
 };

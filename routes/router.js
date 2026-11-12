@@ -6,11 +6,13 @@ const controller = require("../controllers/controller");
 router.get("/", controller.indexGet);
 router.get("/join-the-club", controller.joinTheClubGet);
 router.get("/logout", controller.logoutGet);
+router.get("/become-admin", controller.becomeAdminGet);
 
 // POST
 router.post("/sign-up", controller.signUpPost, controller.loginPost);
 router.post("/join-the-club", controller.joinTheClubPost);
 router.post("/login", controller.loginPost);
+router.post("/become-admin", controller.becomeAdminPost);
 
 // DELETE
 router.delete("/delete/message/:id", controller.messageDelete);

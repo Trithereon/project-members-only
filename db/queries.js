@@ -2,7 +2,11 @@ const pool = require("./pool");
 
 async function getMessages() {
   const SQL = `
-    SELECT * FROM messages ORDER BY created_at ASC`;
+    SELECT m.id, m.title, m.text, m.created_at, u.username
+    FROM messages AS m 
+    INNER JOIN users AS u
+    ON m.author_id = u.id
+    ORDER BY created_at ASC`;
   const { rows } = await pool.query(SQL);
   return rows;
 }
@@ -48,6 +52,14 @@ async function promoteToMember(id) {
   return await pool.query(SQL, [id]);
 }
 
+async function promoteToAdmin(id) {
+  const SQL = `
+    UPDATE users
+    SET admin_status = true, membership_status = true
+    WHERE id = $1`;
+  return await pool.query(SQL, [id]);
+}
+
 async function getUserByUsername(username) {
   const SQL = `
   SELECT * FROM users WHERE username = $1`;
@@ -70,6 +82,7 @@ module.exports = {
   signUp,
   deleteMessage,
   promoteToMember,
+  promoteToAdmin,
   getUserByUsername,
   getUserById,
 };

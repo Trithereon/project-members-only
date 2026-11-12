@@ -7,12 +7,19 @@
     <% if (locals.currentUser) {%>
     <h2>
       Welcome back,
-      <%= currentUser.username %>
+      <%= currentUser.firstname %>
+      <%= currentUser.lastname %>
     </h2>
+    <% if (!locals.currentUser.admin_status) { %>
+    <a class="become-admin-btn" href="/become-admin"> Become an admin </a>
+    <% } %>
     <% if (!locals.currentUser.membership_status) { %>
     <a class="join-the-club-btn" href="/join-the-club"> Join the club </a>
     <% } else { %>
-    <h3>Membership active.</h3>
+    <h3>
+      Membership active for user:
+      <%= currentUser.username %>
+    </h3>
     <% } %>
     <a href="/logout">Log out</a>
     <% } else { %>
@@ -38,6 +45,13 @@
       <div class="message-block">
         <h2 class="message-title"><%= message.title %></h2>
         <div class="message-text"><%= message.text %></div>
+        <% if (locals.currentUser && locals.currentUser.membership_status) { %>
+        <div class="message-author">- <%= message.username %></div>
+        <div class="message-created-at"><%= message.created_at %></div>
+        <% } else { %>
+        <div class="message-author">- Anonymous</div>
+        <% } %>
+        <% if (locals.currentUser && locals.currentUser.admin_status) { %>
         <form
           method="POST"
           class="visible delete"
@@ -45,6 +59,7 @@
         >
           <button class="delete-btn" type="submit">Delete message</button>
         </form>
+        <% } %>
       </div>
       <% }) %>
     </div>
