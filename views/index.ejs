@@ -7,7 +7,7 @@
     <button class="sign-up" data-id="signUp" data-action="toggleForm">
       Sign up
     </button>
-    <% if (locals.visibleForm === "signUpForm") { %>
+    <% if (locals.visibleForm === "signUp") { %>
     <%- include("./partials/signUpForm", {data: data, visible: true, errors: errors}) %>
     <% } else { %>
     <%- include("./partials/signUpForm", {data: false, visible: false, errors: false}) %>

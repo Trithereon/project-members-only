@@ -1,5 +1,6 @@
 @font-face {
   font-family: "Roboto";
+  font-display: block;
   src:
     local("Roboto"),
     url("./assets/fonts/Roboto-Regular.woff2") format("woff2");
@@ -7,8 +8,7 @@
 
 :root {
   font-family: "Roboto", system-ui, sans-serif;
-  font-display: block;
-  text-wrap: balanced;
+  text-wrap: balance;
 }
 
 body {

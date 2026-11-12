@@ -13,6 +13,7 @@ class="<%= visible ? 'visible' : ''%>"
     name="firstname"
     id="firstname"
     value="<%= locals.data ? locals.data.firstname : '' %>"
+    placeholder="e.g. John"
   />
   <label for="lastname">Last name: </label>
   <input
@@ -20,6 +21,7 @@ class="<%= visible ? 'visible' : ''%>"
     name="lastname"
     id="lastname"
     value="<%= locals.data ? locals.data.lastname : '' %>"
+    placeholder="e.g. Doe"
   />
   <label for="username">Username: </label>
   <input
@@ -27,13 +29,21 @@ class="<%= visible ? 'visible' : ''%>"
     name="username"
     id="username"
     value="<%= locals.data ? locals.data.username : '' %>"
+    placeholder="e.g. JohnDoe69"
   />
   <label for="password">Password: </label>
   <input
     type="password"
     name="password"
     id="password"
-    value="<%= locals.data ? locals.data.password : '' %>"
+    placeholder="Choose a strong password"
+  />
+  <label for="password">Confirm password: </label>
+  <input
+    type="password"
+    name="confirmPassword"
+    id="confirmPassword"
+    placeholder="Re-type your password"
   />
   <button type="submit">Submit</button>
 </form>

@@ -1,11 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const erroredForm = document.querySelector("[data-errored]");
-  if (erroredForm) {
-    return erroredForm.scrollIntoView({ behavior: "instant", block: "center" });
-  }
-  return;
-});
-
 function toggleForm(id) {
   const form = document.getElementById(id);
   return form.classList.toggle("visible");
