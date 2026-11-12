@@ -89,8 +89,24 @@ const validateBecomeAdmin = [
     .withMessage("Incorrect, try again..."),
 ];
 
+const validateMessage = [
+  body("title")
+    .trim()
+    .notEmpty()
+    .withMessage("Title is required.")
+    .isLength({ min: 1, max: 180 })
+    .withMessage("Title max characters: 180"),
+  body("text")
+    .trim()
+    .notEmpty()
+    .withMessage("Text is required.")
+    .isLength({ min: 1, max: 800 })
+    .withMessage("Text max characters: 800"),
+];
+
 module.exports = {
   validateJoinTheClub,
   validateSignUp,
   validateBecomeAdmin,
+  validateMessage,
 };

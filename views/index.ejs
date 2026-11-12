@@ -9,17 +9,17 @@
       Welcome back,
       <%= currentUser.firstname %>
       <%= currentUser.lastname %>
+      (<%= currentUser.username %>)
     </h2>
     <% if (!locals.currentUser.admin_status) { %>
     <a class="become-admin-btn" href="/become-admin"> Become an admin </a>
+    <% } else { %>
+    <span>Admin status: active</span>
     <% } %>
     <% if (!locals.currentUser.membership_status) { %>
     <a class="join-the-club-btn" href="/join-the-club"> Join the club </a>
     <% } else { %>
-    <h3>
-      Membership active for user:
-      <%= currentUser.username %>
-    </h3>
+    <span>Membership status: active</span>
     <% } %>
     <a href="/logout">Log out</a>
     <% } else { %>
@@ -41,6 +41,9 @@
     <% } %>
     <%}%>
     <div class="main-content">
+      <% if (locals.currentUser) { %>
+      <a href="/create-message">Create new message</a>
+      <% } %>
       <% messages.forEach((message)=>{ %>
       <div class="message-block">
         <h2 class="message-title"><%= message.title %></h2>

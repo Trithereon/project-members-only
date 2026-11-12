@@ -17,11 +17,12 @@ async function signUp(credentials) {
     VALUES ($1, $2, $3, $4)
     RETURNING *`;
 
+  const { firstname, lastname, username, hashedPassword } = credentials;
   const { rows } = await pool.query(SQL, [
-    credentials.firstname,
-    credentials.lastname,
-    credentials.username,
-    credentials.hashedPassword,
+    firstname,
+    lastname,
+    username,
+    hashedPassword,
   ]);
 
   const [user] = rows;
@@ -76,6 +77,14 @@ async function getUserById(id) {
   return user;
 }
 
+async function createMessage(data) {
+  const SQL = `
+  INSERT INTO messages(title, text, author_id)
+  VALUES ($1, $2, $3)`;
+  const { title, text, id } = data;
+  await pool.query(SQL, [title, text, id]);
+}
+
 module.exports = {
   getMessages,
   isUsernameTaken,
@@ -85,4 +94,5 @@ module.exports = {
   promoteToAdmin,
   getUserByUsername,
   getUserById,
+  createMessage,
 };

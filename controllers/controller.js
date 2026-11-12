@@ -5,6 +5,7 @@ const {
   validateJoinTheClub,
   validateSignUp,
   validateBecomeAdmin,
+  validateMessage,
 } = require("../validators/validators");
 const { ensureAuthenticated, ensureAdmin } = require("../validators/auth");
 const passport = require("passport");
@@ -145,3 +146,39 @@ exports.becomeAdminGet = async (req, res, next) => {
     errors: attempt.errors || [],
   });
 };
+
+exports.createMessagePost = [
+  validateMessage,
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log("Invalid input body: ", req.method, req.originalUrl);
+      const { title, text } = req.body;
+      req.session.attempt = {
+        errors: errors.array(),
+        data: { title, text },
+      };
+      return res.redirect("/create-message");
+    }
+
+    const { title, text } = matchedData(req);
+    const { id } = req.user;
+    const data = { title, text, id };
+    await db.createMessage(data);
+    return res.redirect("/");
+  },
+];
+
+exports.createMessageGet = [
+  ensureAuthenticated,
+  async (req, res, next) => {
+    const attempt = req.session.attempt || {};
+    delete req.session.attempt;
+
+    res.render("createMessage", {
+      title: "Create Message",
+      errors: attempt.errors || [],
+      data: attempt.data || {},
+    });
+  },
+];

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head", {title:title}) %>
+  <body>
+    <%- include("./partials/header", {title:title}) %>
+
+    <a href="/">Go back to homepage</a>
+
+    <div class="main-content">
+      <form
+        id="createMessage"
+        action="/create-message"
+        method="POST"
+        class="visible"
+      >
+        <%- include("./partials/validationErrors") %>
+
+        <label for="title">Title: </label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          placeholder="Enter a brief title or summary... (Max 180 characters)"
+          value="<%= data?.title %>"
+        />
+        <label for="text">Text: </label>
+        <input
+          type="text"
+          name="text"
+          id="text"
+          placeholder="Enter your message here... (Max 800 characters)"
+          value="<%= data?.text %>"
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <%- include("./partials/footer") %>
+  </body>
+</html>
