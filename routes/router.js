@@ -4,9 +4,11 @@ const controller = require("../controllers/controller");
 
 // GET
 router.get("/", controller.indexGet);
+router.get("/join-the-club", controller.joinTheClubGet);
 
 // POST
 router.post("/sign-up", controller.signUpPost);
+router.post("/join-the-club", controller.joinTheClubPost);
 
 // DELETE
 router.delete("/delete/message/:id", controller.messageDelete);

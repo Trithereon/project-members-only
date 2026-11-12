@@ -36,9 +36,18 @@ async function isUsernameTaken(username) {
   return isTaken.exists;
 }
 
+async function promoteToMember(id) {
+  const SQL = `
+    UPDATE users
+    SET membership_status = true
+    WHERE id = $1`;
+  return await pool.query(SQL, [id]);
+}
+
 module.exports = {
   getMessages,
   isUsernameTaken,
   signUp,
   deleteMessage,
+  promoteToMember,
 };

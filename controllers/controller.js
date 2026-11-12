@@ -16,11 +16,60 @@ exports.indexGet = async (req, res, next) => {
   return res.render("index", {
     title: "Members Only",
     messages: await db.getMessages(),
-    errors: signUpForm.errors || false,
-    visibleForm: signUpForm.visibleForm || false,
+    errors: signUpForm.errors || [],
+    visibleForm: signUpForm.visibleForm || null,
     data: signUpForm.data || {},
   });
 };
+
+exports.joinTheClubGet = async (req, res, next) => {
+  const attempt = req.session.attempt || {};
+  delete req.session.attempt;
+
+  return res.render("joinTheClub", {
+    title: "Join the club",
+    errors: attempt.errors || [],
+  });
+};
+
+const validateJoinTheClub = [
+  body("secret")
+    .trim()
+    .notEmpty()
+    .withMessage("Secret is required.")
+    .isAlpha()
+    .withMessage("Only letters are needed. No spaces.")
+    .isLength({ max: 500 })
+    .withMessage("Hint: it is shorter than 500 characters.")
+    .custom((secret) => {
+      return secret === process.env.MEMBERSHIP_SECRET;
+    })
+    .withMessage("Incorrect, try again..."),
+];
+
+exports.joinTheClubPost = [
+  validateJoinTheClub,
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(
+        "400 triggered by invalid input body: ",
+        req.method,
+        req.originalUrl,
+      );
+      // Use req.session to save/access state
+      req.session.attempt = {
+        errors: errors.array(),
+      };
+      return res.redirect("/join-the-club");
+    }
+
+    const { secret } = matchedData(req);
+    // TODO: pass id to db function.
+    await db.promoteToMember();
+    res.redirect("/");
+  },
+];
 
 const validateSignUp = [
   body("firstname")
@@ -83,7 +132,6 @@ const validateSignUp = [
 exports.signUpPost = [
   validateSignUp,
   async (req, res, next) => {
-    console.log(validationResult(req).array());
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.log(

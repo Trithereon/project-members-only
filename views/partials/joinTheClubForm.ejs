@@ -1,0 +1,12 @@
+<form id="joinTheClub" action="/join-the-club" method="POST" class="visible">
+  <%- include("./validationErrors") %>
+
+  <label for="secret">Secret phrase: </label>
+  <input
+    type="text"
+    name="secret"
+    id="secret"
+    placeholder="Enter the secret phrase..."
+  />
+  <button type="submit">Submit</button>
+</form>
