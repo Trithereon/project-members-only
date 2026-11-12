@@ -49,8 +49,6 @@ exports.joinTheClubPost = [
       return res.redirect("/join-the-club");
     }
 
-    const { secret } = matchedData(req);
-    // TODO: pass id to db function.
     await db.promoteToMember(res.locals.currentUser.id);
     res.redirect("/");
   },
@@ -77,11 +75,21 @@ exports.signUpPost = [
       return res.redirect("/");
     }
 
+    // Hash password and assemble fully processed credentials.
     const { firstname, lastname, username, password } = matchedData(req);
     const hashedPassword = await bcrypt.hash(password, 10);
     const credentials = { firstname, lastname, username, hashedPassword };
-    await db.signUp(credentials);
-    res.redirect("/");
+
+    // Add new user to database and return that user.
+    const user = await db.signUp(credentials);
+
+    // Automatically log in after sign up.
+    req.login(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect("/");
+    });
   },
 ];
 

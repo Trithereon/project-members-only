@@ -8,7 +8,7 @@ router.get("/join-the-club", controller.joinTheClubGet);
 router.get("/logout", controller.logoutGet);
 
 // POST
-router.post("/sign-up", controller.signUpPost);
+router.post("/sign-up", controller.signUpPost, controller.loginPost);
 router.post("/join-the-club", controller.joinTheClubPost);
 router.post("/login", controller.loginPost);
 
