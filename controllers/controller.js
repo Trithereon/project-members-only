@@ -6,6 +6,7 @@ const {
   validateSignUp,
   validateBecomeAdmin,
 } = require("../validators/validators");
+const { ensureAuthenticated, ensureAdmin } = require("../validators/auth");
 const passport = require("passport");
 
 exports.indexGet = async (req, res, next) => {
@@ -34,15 +35,12 @@ exports.joinTheClubGet = async (req, res, next) => {
 };
 
 exports.joinTheClubPost = [
+  ensureAuthenticated,
   validateJoinTheClub,
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(
-        "400 triggered by invalid input body: ",
-        req.method,
-        req.originalUrl,
-      );
+      console.log("Invalid input body: ", req.method, req.originalUrl);
       // Use req.session to save/access state
       req.session.attempt = {
         errors: errors.array(),
@@ -60,11 +58,7 @@ exports.signUpPost = [
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(
-        "400 triggered by invalid input body: ",
-        req.method,
-        req.originalUrl,
-      );
+      console.log("Invalid input body: ", req.method, req.originalUrl);
       // Strip password from req.body
       const { firstname, lastname, username } = req.body;
       // Use req.session to save/access state
@@ -100,31 +94,33 @@ exports.loginPost = passport.authenticate("local", {
   failureMessage: true,
 });
 
-exports.logoutGet = (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
-};
+exports.logoutGet = [
+  ensureAuthenticated,
+  (req, res, next) => {
+    req.logout((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/");
+    });
+  },
+];
 
-exports.messageDelete = async (req, res, next) => {
-  // TODO: Add validation and confirmation alert.
-  await db.deleteMessage(req.params.id);
-  res.redirect("/");
-};
+exports.messageDelete = [
+  ensureAdmin,
+  async (req, res, next) => {
+    await db.deleteMessage(req.params.id);
+    res.redirect("/");
+  },
+];
 
 exports.becomeAdminPost = [
+  ensureAuthenticated,
   validateBecomeAdmin,
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(
-        "400 triggered by invalid input body: ",
-        req.method,
-        req.originalUrl,
-      );
+      console.log("Invalid input body: ", req.method, req.originalUrl);
       // Use req.session to save/access state
       req.session.attempt = {
         errors: errors.array(),
