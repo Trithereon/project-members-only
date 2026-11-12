@@ -4,6 +4,24 @@
   <body>
     <%- include("./partials/header", {title:title}) %>
 
+    <% if (locals.currentUser) {%>
+    <h2>
+      Welcome back,
+      <%= currentUser.username %>
+    </h2>
+    <a href="/log-out">Log out</a>
+    <% } else { %>
+    <button class="login" data-id="login" data-action="toggleForm">
+      Log in
+    </button>
+    <% if (locals.visibleForm === "login") { %>
+    <%- include("./partials/loginForm", {visible: true, errors: errors}) %>
+    <% } else { %>
+    <%- include("./partials/loginForm", {visible: false, errors: false}) %>
+    <% } %>
+    <a class="join-the-club-btn" href="/join-the-club"> Join the club </a>
+    <%}%>
+
     <button class="sign-up" data-id="signUp" data-action="toggleForm">
       Sign up
     </button>
@@ -12,8 +30,6 @@
     <% } else { %>
     <%- include("./partials/signUpForm", {data: false, visible: false, errors: false}) %>
     <% } %>
-
-    <a class="join-the-club-btn" href="/join-the-club"> Join the club </a>
 
     <div class="main-content">
       <% messages.forEach((message)=>{ %>

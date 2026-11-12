@@ -1,0 +1,24 @@
+<form
+  id="login"
+  action="/login"
+  method="POST"
+  class="<%= visible ? 'visible' : ''%>"
+>
+  <%- include("./validationErrors") %>
+
+  <label for="username">Username: </label>
+  <input
+    type="text"
+    name="username"
+    id="username"
+    placeholder="enter your username..."
+  />
+  <label for="password">Password: </label>
+  <input
+    type="password"
+    name="password"
+    id="password"
+    placeholder="enter your password..."
+  />
+  <button type="submit">Submit</button>
+</form>

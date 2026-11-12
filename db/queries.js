@@ -44,10 +44,28 @@ async function promoteToMember(id) {
   return await pool.query(SQL, [id]);
 }
 
+async function getUserByUsername(username) {
+  const SQL = `
+  SELECT * FROM users WHERE username = $1`;
+  const { rows } = await pool.query(SQL, [username]);
+  const [user] = rows;
+  return user;
+}
+
+async function getUserById(id) {
+  const SQL = `
+  SELECT * FROM users WHERE id = $1`;
+  const { rows } = await pool.query(SQL, [id]);
+  const [user] = rows;
+  return user;
+}
+
 module.exports = {
   getMessages,
   isUsernameTaken,
   signUp,
   deleteMessage,
   promoteToMember,
+  getUserByUsername,
+  getUserById,
 };
