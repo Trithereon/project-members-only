@@ -6,6 +6,12 @@
     url("./assets/fonts/Roboto-Regular.woff2") format("woff2");
 }
 
+@font-face {
+  font-family: "Auriol";
+  font-display: block;
+  src: url("./assets/fonts/Auriol-Regular.woff2") format("woff2");
+}
+
 :root {
   font-family: "Roboto", system-ui, sans-serif;
   text-wrap: balance;
@@ -45,6 +51,9 @@ form.delete {
 .title-heading {
   display: flex;
   column-gap: 20px;
+  align-items: center;
+  font-size: 1.3em;
+  font-family: Auriol, Roboto, system-ui, serif;
 }
 
 .logo {
@@ -54,4 +63,57 @@ form.delete {
 
 button {
   width: fit-content;
+}
+
+.welcome-back {
+  text-align: center;
+}
+
+.message-block {
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 12px 0;
+  column-gap: 4px;
+  display: grid;
+  align-items: center;
+  grid-template-areas:
+    "icon author date"
+    "title title title"
+    "text text text"
+    "delete delete delete";
+  grid-template-columns: 24px 1fr 1fr;
+}
+.message-title {
+  font-size: 1.2em;
+  grid-area: title;
+  margin-bottom: 0;
+}
+.message-text {
+  grid-area: text;
+}
+.message-author-icon {
+  width: 24px;
+  height: 24px;
+}
+.message-author {
+  grid-area: author;
+}
+.message-created-at {
+  grid-area: date;
+  justify-self: right;
+  text-align: right;
+  font-style: italic;
+}
+.delete {
+  grid-area: delete;
+  justify-self: right;
+}
+.create-message {
+  min-width: 400px;
+}
+
+.create-message-text {
+  field-sizing: content;
+  min-height: 8lh;
+  max-height: 18lh;
 }

@@ -1,6 +1,5 @@
--- ============================================================
--- USERS
--- ============================================================
+-- Placeholder data for users and messages.
+-- NOTE: the password values are fake bcrypt-shaped strings.
 INSERT INTO
   users (
     firstname,
@@ -12,173 +11,184 @@ INSERT INTO
   )
 VALUES
   (
-    'Alice',
-    'Anderson',
-    'alice_a',
-    'hashed_pw_alice',
-    true,
-    true
-  ),
-  (
-    'Bob',
-    'Brown',
-    'bobby_b',
-    'hashed_pw_bob',
-    true,
-    false
-  ),
-  (
-    'Carol',
-    'Clark',
-    'carolc',
-    'hashed_pw_carol',
-    false,
-    false
-  ),
-  (
-    'Dave',
-    'Davis',
-    'dave_d',
-    'hashed_pw_dave',
-    true,
-    false
-  ),
-  (
-    'Eve',
-    'Evans',
-    'eve_e',
-    'hashed_pw_eve',
-    false,
-    false
-  ),
-  (
-    'Frank',
-    'Foster',
-    'frankf',
-    'hashed_pw_frank',
+    'Ada',
+    'Lovelace',
+    'ada_l',
+    '$2b$10$abcdefghijklmnopqrstuuABCDEFGHIJKLMNOPQRSTUVWXYZ012345',
     true,
     true
   ),
   (
     'Grace',
-    'Green',
-    'grace_g',
-    'hashed_pw_grace',
+    'Hopper',
+    'grace_h',
+    '$2b$10$abcdefghijklmnopqrstuuABCDEFGHIJKLMNOPQRSTUVWXYZ012345',
+    true,
+    false
+  ),
+  (
+    'Alan',
+    'Turing',
+    'alan_t',
+    '$2b$10$abcdefghijklmnopqrstuuABCDEFGHIJKLMNOPQRSTUVWXYZ012345',
+    true,
+    false
+  ),
+  (
+    'Linus',
+    'Torvalds',
+    'linus_t',
+    '$2b$10$abcdefghijklmnopqrstuuABCDEFGHIJKLMNOPQRSTUVWXYZ012345',
     false,
     false
   ),
   (
-    'Hank',
-    'Hill',
-    'hank_h',
-    'hashed_pw_hank',
+    'Margaret',
+    'Hamilton',
+    'mhamilton',
+    '$2b$10$abcdefghijklmnopqrstuuABCDEFGHIJKLMNOPQRSTUVWXYZ012345',
     true,
+    false
+  ),
+  (
+    'Dennis',
+    'Ritchie',
+    'dritchie',
+    '$2b$10$abcdefghijklmnopqrstuuABCDEFGHIJKLMNOPQRSTUVWXYZ012345',
+    false,
     false
   );
 
--- ============================================================
--- MESSAGES
--- (author_id references users.id, assumes IDs 1-8 in insert order)
--- ============================================================
 INSERT INTO
-  messages (author_id, title, created_at, text)
+  messages (author_id, title, text, created_at)
 VALUES
-  -- Alice (admin, member)
   (
-    1,
-    'Welcome to the Message Board!',
-    NOW() - INTERVAL '10 days',
-    'Hello everyone! This is the first post on our new message board. Feel free to introduce yourselves and start posting.'
+    (
+      SELECT
+        id
+      FROM
+        users
+      WHERE
+        username = 'ada_l'
+    ),
+    'Welcome to the club!',
+    'Glad to have everyone here. Please keep things friendly and on topic. Admins will tidy up anything that drifts too far off course.',
+    NOW() - INTERVAL '30 days'
   ),
   (
-    1,
-    'Community Guidelines',
-    NOW() - INTERVAL '9 days',
-    'A few ground rules: be respectful, no spam, keep it on-topic. Admins reserve the right to remove posts that violate these rules.'
-  ),
-  -- Bob (member)
-  (
-    2,
-    'What is everyone working on?',
-    NOW() - INTERVAL '8 days',
-    'Curious what projects people have going on this week. I just finished setting up a new home server.'
-  ),
-  (
-    2,
-    'Best coffee shops in town?',
-    NOW() - INTERVAL '6 days',
-    'Looking for recommendations. I need a good spot with wifi to work from on weekends.'
-  ),
-  -- Carol (non-member)
-  (
-    3,
-    'Question about membership',
-    NOW() - INTERVAL '7 days',
-    'How does one become a member here? I see some posts are locked behind membership.'
+    (
+      SELECT
+        id
+      FROM
+        users
+      WHERE
+        username = 'ada_l'
+    ),
+    'Posting guidelines',
+    'Keep titles short and descriptive, avoid spam, and be kind. Members can see who wrote each message; everyone else just sees the text.',
+    NOW() - INTERVAL '29 days'
   ),
   (
-    3,
-    'Hello from a newcomer',
-    NOW() - INTERVAL '5 days',
-    'Just signed up! Nice to meet everyone. Looking forward to participating in the discussions.'
-  ),
-  -- Dave (member)
-  (
-    4,
-    'Book club, any interest?',
-    NOW() - INTERVAL '6 days',
-    'Thinking about starting a monthly book club. Drop a reply if you would be interested and what genres you like.'
-  ),
-  (
-    4,
-    'Weekend hiking trip recap',
-    NOW() - INTERVAL '3 days',
-    'Went up to the ridge trail on Saturday. Weather was perfect. Photos coming soon, highly recommend it.'
-  ),
-  -- Eve (non-member)
-  (
-    5,
-    'Lost and found, a set of keys',
-    NOW() - INTERVAL '4 days',
-    'Found a set of keys near the entrance yesterday. If they are yours, describe them and I will return them.'
-  ),
-  -- Frank (admin, member)
-  (
-    6,
-    'Site maintenance scheduled',
-    NOW() - INTERVAL '3 days',
-    'We will be doing maintenance this Sunday from 2-4 AM. Expect brief downtime. Apologies for the inconvenience.'
+    (
+      SELECT
+        id
+      FROM
+        users
+      WHERE
+        username = 'grace_h'
+    ),
+    'Found a bug in my morning routine',
+    'Turns out the moth in the relay was not the real problem. The real problem was that I forgot to drink coffee before debugging.',
+    NOW() - INTERVAL '21 days'
   ),
   (
-    6,
-    'Feature request thread',
-    NOW() - INTERVAL '2 days',
-    'Have an idea for the board? Post it here. We are considering adding reactions and a search feature.'
-  ),
-  -- Grace (non-member)
-  (
-    7,
-    'Any recommendations for a good podcast?',
-    NOW() - INTERVAL '2 days',
-    'I have a long commute and need something to listen to. Open to any topic, tech, history, comedy.'
-  ),
-  -- Hank (member)
-  (
-    8,
-    'Poll: best pizza in the city',
-    NOW() - INTERVAL '1 day',
-    'Vote in the replies. I am partial to the place on 5th, but I want to hear your favorites.'
+    (
+      SELECT
+        id
+      FROM
+        users
+      WHERE
+        username = 'grace_h'
+    ),
+    'Book recommendations?',
+    'Looking for something on the history of computing that is readable on a train. Bonus points if it has good diagrams.',
+    NOW() - INTERVAL '14 days'
   ),
   (
-    8,
-    'Anyone up for a board game night?',
-    NOW() - INTERVAL '6 hours',
-    'Thinking of hosting a board game night next Friday. Reply if you are interested and what games you would like to play.'
+    (
+      SELECT
+        id
+      FROM
+        users
+      WHERE
+        username = 'alan_t'
+    ),
+    'Can machines think?',
+    'Probably a question for a longer thread, but I would love to hear what everyone thinks. Please keep it civil, and please cite sources.',
+    NOW() - INTERVAL '12 days'
   ),
-  -- Alice (admin) again
   (
-    1,
-    'Thank you for 100 members!',
-    NOW() - INTERVAL '2 hours',
-    'We just hit 100 registered members. Thank you all for making this a great community. Here is to the next 100!'
+    (
+      SELECT
+        id
+      FROM
+        users
+      WHERE
+        username = 'linus_t'
+    ),
+    'Is anyone else here a night owl?',
+    'Most of my best commits happen after midnight. Most of my worst ones do too. Curious whether this is a universal experience.',
+    NOW() - INTERVAL '9 days'
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        users
+      WHERE
+        username = 'mhamilton'
+    ),
+    'Test everything twice',
+    'Then test it a third time with the weirdest inputs you can think of. Users will always find the path you did not plan for.',
+    NOW() - INTERVAL '6 days'
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        users
+      WHERE
+        username = 'mhamilton'
+    ),
+    'Weekend project showcase',
+    'Share what you are building this weekend! Half-finished ideas are welcome. I will start: a tiny tool that renames photos by date.',
+    NOW() - INTERVAL '3 days'
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        users
+      WHERE
+        username = 'dritchie'
+    ),
+    'Hello, world',
+    'First post. Short and simple, the way it should be.',
+    NOW() - INTERVAL '1 day'
+  ),
+  (
+    (
+      SELECT
+        id
+      FROM
+        users
+      WHERE
+        username = 'ada_l'
+    ),
+    'Thanks for a great first month',
+    'Thank you all for making this a welcoming place. Looking forward to seeing what everyone shares next.',
+    NOW() - INTERVAL '2 hours'
   );

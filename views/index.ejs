@@ -5,10 +5,8 @@
     <%- include("./partials/header", {title:title}) %>
 
     <% if (locals.currentUser) {%>
-    <h2>
-      Welcome back,
-      <%= currentUser.firstname %>
-      <%= currentUser.lastname %>
+    <h2 class="welcome-back">
+      Welcome back, <%= currentUser.firstname %> <%= currentUser.lastname %>
       (<%= currentUser.username %>)
     </h2>
     <% if (!locals.currentUser.admin_status) { %>
@@ -46,11 +44,18 @@
       <% } %>
       <% messages.forEach((message)=>{ %>
       <div class="message-block">
+        <img
+          class="message-author-icon"
+          src="/assets/icons/user.svg"
+          alt="user icon"
+        />
         <h2 class="message-title"><%= message.title %></h2>
-        <div class="message-text"><%= message.text %></div>
+        <p class="message-text"><%= message.text %></p>
         <% if (locals.currentUser && locals.currentUser.membership_status) { %>
-        <div class="message-author">- <%= message.username %></div>
-        <div class="message-created-at"><%= message.created_at %></div>
+        <div class="message-author"><%= message.username %></div>
+        <small class="message-created-at">
+          <%= message.created_at.toString().slice(0,21) %>
+        </small>
         <% } else { %>
         <div class="message-author">- Anonymous</div>
         <% } %>

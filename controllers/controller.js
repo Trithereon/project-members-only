@@ -136,6 +136,10 @@ exports.becomeAdminPost = [
 ];
 
 exports.becomeAdminGet = async (req, res, next) => {
+  // If already admin, redirect to homepage
+  if (req.user.admin_status) {
+    return res.redirect("/");
+  }
   // Uses req.session to save/access state
   const attempt = req.session.attempt || {};
   // Delete, to avoid stale data lingering
@@ -176,7 +180,7 @@ exports.createMessageGet = [
     delete req.session.attempt;
 
     res.render("createMessage", {
-      title: "Create Message",
+      title: "Members Only: Create Message",
       errors: attempt.errors || [],
       data: attempt.data || {},
     });

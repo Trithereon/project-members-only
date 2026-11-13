@@ -6,7 +6,7 @@ async function getMessages() {
     FROM messages AS m 
     INNER JOIN users AS u
     ON m.author_id = u.id
-    ORDER BY created_at ASC`;
+    ORDER BY created_at DESC`;
   const { rows } = await pool.query(SQL);
   return rows;
 }
