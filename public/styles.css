@@ -120,4 +120,9 @@ button {
 }
 a {
   margin: 20px;
+  text-decoration-line: none;
+}
+a:visited {
+  text-decoration-color: rgb(0, 0, 238);
+  color: rgb(0, 0, 238);
 }
