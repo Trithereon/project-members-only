@@ -57,7 +57,7 @@
           <%= message.created_at.toString().slice(0,21) %>
         </small>
         <% } else { %>
-        <div class="message-author">- Anonymous</div>
+        <div class="message-author">anonymous</div>
         <% } %>
         <% if (locals.currentUser && locals.currentUser.admin_status) { %>
         <form

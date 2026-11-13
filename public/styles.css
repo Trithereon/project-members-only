@@ -63,6 +63,7 @@ form.delete {
 
 button {
   width: fit-content;
+  margin: 10px;
 }
 
 .welcome-back {
@@ -116,4 +117,7 @@ button {
   field-sizing: content;
   min-height: 8lh;
   max-height: 18lh;
+}
+a {
+  margin: 20px;
 }
