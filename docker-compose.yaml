@@ -1,6 +1,6 @@
 services:
-  members-only:
-    container_name: members-only
+  membersonly:
+    container_name: membersonly
     build: .
     env_file:
       - .env
@@ -11,7 +11,7 @@ services:
     networks:
       - deploys_net
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://members-only:51113/"]
+      test: ["CMD", "wget", "-qO-", "http://membersonly:51113/"]
       interval: 30s
       timeout: 5s
       retries: 3
